@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3 {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0F172A',
+                        secondary: '#06B6D4',
+                        accent: '#F59E0B',
+                        dark: '#1E293B',
+                        light: '#F1F5F9'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen flex flex-col bg-light">
+    <%- include('../partials/navbar') %>
+    
+    <main class="flex-grow py-12">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <!-- Header -->
+                <div class="text-center mb-8">
+                    <div class="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-secondary to-cyan-400 rounded-full mb-4">
+                        <span class="text-5xl text-white font-bold"><%= user.name.charAt(0).toUpperCase() %></span>
+                    </div>
+                    <h1 class="text-4xl font-bold text-primary mb-2">My Profile</h1>
+                    <p class="text-gray-600">Manage your account information</p>
+                </div>
+
+                <!-- Success/Error Messages -->
+                <% if (success) { %>
+                    <div class="mb-6 bg-green-50 border-l-4 border-green-500 p-4 rounded">
+                        <p class="text-green-700 font-semibold">✅ <%= success %></p>
+                    </div>
+                <% } %>
+                
+                <% if (error) { %>
+                    <div class="mb-6 bg-red-50 border-l-4 border-red-500 p-4 rounded">
+                        <p class="text-red-700 font-semibold">❌ <%= error %></p>
+                    </div>
+                <% } %>
+
+                <!-- Profile Information -->
+                <div class="bg-white rounded-2xl shadow-2xl p-8 mb-6">
+                    <h2 class="text-2xl font-bold text-primary mb-6 flex items-center gap-2">
+                        <span>👤</span> Personal Information
+                    </h2>
+                    
+                    <form action="/profile/update" method="POST">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Name -->
+                            <div>
+                                <label class="block text-gray-700 text-sm font-semibold mb-2" for="name">
+                                    Full Name
+                                </label>
+                                <input 
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent" 
+                                    id="name" 
+                                    name="name" 
+                                    type="text"
+                                    value="<%= user.name %>"
+                                    required
+                                >
+                            </div>
+
+                            <!-- Email -->
+                            <div>
+                                <label class="block text-gray-700 text-sm font-semibold mb-2" for="email">
+                                    Email Address
+                                </label>
+                                <input 
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent" 
+                                    id="email" 
+                                    name="email" 
+                                    type="email"
+                                    value="<%= user.email %>"
+                                    required
+                                >
+                            </div>
+
+                            <!-- Phone -->
+                            <div>
+                                <label class="block text-gray-700 text-sm font-semibold mb-2" for="phone">
+                                    Phone Number
+                                </label>
+                                <input 
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent" 
+                                    id="phone" 
+                                    name="phone" 
+                                    type="tel"
+                                    pattern="[0-9]{10}"
+                                    value="<%= user.phone %>"
+                                    required
+                                >
+                            </div>
+
+                            <!-- College -->
+                            <div>
+                                <label class="block text-gray-700 text-sm font-semibold mb-2" for="college">
+                                    College Name
+                                </label>
+                                <input 
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent" 
+                                    id="college" 
+                                    name="college" 
+                                    type="text"
+                                    value="<%= user.college %>"
+                                    required
+                                >
+                            </div>
+                        </div>
+
+                        <div class="mt-6">
+                            <button 
+                                type="submit"
+                                class="bg-secondary text-white font-semibold py-3 px-8 rounded-lg hover:bg-cyan-500 transition-all hover:scale-105 shadow-lg"
+                            >
+                                Update Profile
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Change Password -->
+                <div class="bg-white rounded-2xl shadow-2xl p-8">
+                    <h2 class="text-2xl font-bold text-primary mb-6 flex items-center gap-2">
+                        <span>🔒</span> Change Password
+                    </h2>
+                    
+                    <form action="/profile/change-password" method="POST">
+                        <div class="space-y-4">
+                            <!-- Current Password -->
+                            <div>
+                                <label class="block text-gray-700 text-sm font-semibold mb-2" for="currentPassword">
+                                    Current Password
+                                </label>
+                                <input 
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent" 
+                                    id="currentPassword" 
+                                    name="currentPassword" 
+                                    type="password"
+                                    required
+                                >
+                            </div>
+
+                            <!-- New Password -->
+                            <div>
+                                <label class="block text-gray-700 text-sm font-semibold mb-2" for="newPassword">
+                                    New Password
+                                </label>
+                                <input 
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent" 
+                                    id="newPassword" 
+                                    name="newPassword" 
+                                    type="password"
+                                    minlength="6"
+                                    required
+                                >
+                            </div>
+
+                            <!-- Confirm New Password -->
+                            <div>
+                                <label class="block text-gray-700 text-sm font-semibold mb-2" for="confirmPassword">
+                                    Confirm New Password
+                                </label>
+                                <input 
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent" 
+                                    id="confirmPassword" 
+                                    name="confirmPassword" 
+                                    type="password"
+                                    minlength="6"
+                                    required
+                                >
+                            </div>
+                        </div>
+
+                        <div class="mt-6">
+                            <button 
+                                type="submit"
+                                class="bg-accent text-white font-semibold py-3 px-8 rounded-lg hover:bg-orange-500 transition-all hover:scale-105 shadow-lg"
+                            >
+                                Change Password
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Account Stats -->
+                <div class="bg-white rounded-2xl shadow-2xl p-8 mt-6">
+                    <h2 class="text-2xl font-bold text-primary mb-6 flex items-center gap-2">
+                        <span>📊</span> Account Information
+                    </h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="border-l-4 border-secondary pl-4">
+                            <p class="text-gray-500 text-sm">Member Since</p>
+                            <p class="font-semibold text-lg">
+                                <%= new Date(user.createdAt).toLocaleDateString('en-IN', { 
+                                    day: 'numeric', 
+                                    month: 'long', 
+                                    year: 'numeric' 
+                                }) %>
+                            </p>
+                        </div>
+                        <div class="border-l-4 border-accent pl-4">
+                            <p class="text-gray-500 text-sm">User ID</p>
+                            <p class="font-semibold text-sm text-gray-600"><%= user._id %></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <%- include('../partials/footer') %>
+</body>
+</html>

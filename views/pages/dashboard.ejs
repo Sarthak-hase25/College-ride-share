@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - College Ride Share</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3 {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0F172A',
+                        secondary: '#06B6D4',
+                        accent: '#F59E0B',
+                        dark: '#1E293B',
+                        light: '#F1F5F9'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen flex flex-col bg-light">
+    <%- include('../partials/navbar') %>
+    
+    <main class="flex-grow py-12">
+        <div class="container mx-auto px-4">
+            <!-- Welcome Section -->
+            <div class="bg-gradient-to-r from-primary to-dark text-white rounded-2xl p-8 mb-8">
+                <h1 class="text-3xl md:text-4xl font-bold mb-2">Welcome back, <%= user.name %>! 👋</h1>
+                <p class="text-gray-300">Ready to share or find a ride today?</p>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <a href="/rides/create" class="group bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all border-2 border-transparent hover:border-secondary">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-gradient-to-br from-secondary to-cyan-400 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                            🚗
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-primary">Offer a Ride</h3>
+                            <p class="text-gray-600">Share your journey with others</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="/rides" class="group bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all border-2 border-transparent hover:border-accent">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-gradient-to-br from-accent to-orange-400 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                            🔍
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-primary">Find a Ride</h3>
+                            <p class="text-gray-600">Browse available rides</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <div class="text-secondary text-3xl font-bold mb-2"><%= offeredRides %></div>
+                        <p class="text-gray-600">Rides Offered</p>
+                    </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+            <div class="text-accent text-3xl font-bold mb-2"><%= bookedRides %></div>
+                <p class="text-gray-600">Rides Booked</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-md">
+                <div class="text-secondary text-3xl font-bold mb-2">₹<%= bookedRides * 50 %></div>
+                    <p class="text-gray-600">Approx. Saved</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <%- include('../partials/footer') %>
+</body>
+</html>
