@@ -9,6 +9,9 @@
     "build:css": "npx tailwindcss -i ./public/css/input.css -o ./public/css/output.css --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+   "engines": {
+    "node": ">=14.0.0"
+  },
   "keywords": [],
   "author": "Sarthak",
   "license": "ISC",
