@@ -2,7 +2,7 @@
 
 A web platform for college students to share rides, save money, and connect with fellow students.
 
-## Live Demo - https://ride-sharing-platform-fljk.onrender.com
+### Live Demo - https://ride-sharing-platform-fljk.onrender.com
 
 ## Features
 
