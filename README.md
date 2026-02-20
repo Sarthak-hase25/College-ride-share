@@ -1,4 +1,4 @@
-# College Ride Share  
+# Ride Sharing Platform 
 
 A web platform for college students to share rides, save money, and connect with fellow students.
 
