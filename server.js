@@ -56,6 +56,15 @@ app.use('/', authRoutes);
 app.use('/rides', rideRoutes);
 app.use('/profile', profileRoutes);
 
+app.get("/keep-alive",(req,res)=>{
+    res.send("Keep Alive");
+}
+setInterval(()=>{
+    fetch("https://ride-sharing-platform-fljk.onrender.com/keep-alive")
+    .then(() => console.log("Pinged self to stay awake")
+        .catch((err)=> console.error("Ping failed")
+               },5*60*1000);
+
 // Start Server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
